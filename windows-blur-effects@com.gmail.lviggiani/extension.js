@@ -41,6 +41,7 @@ const display = global.display;
 
 const specialApps = /(Gimp.*)(Docky)/; // Regexp for wm-classes to exclude form effects
 const excludeList = []; // an array of wm-class to be excluded from filters
+const includeList = ['Gnome-terminal'];
 
 const filters = extension.imports.shared.filters;
 
@@ -153,7 +154,9 @@ function updateWindows(app){
 		
 		// Fix issue #1: Exclude some windows from effects
 		flag = flag && excludeList.indexOf(window.wm_class) < 0;
-		
+
+		flag = flag && includeList.indexOf(window.wm_class) >= 0;
+
 		// Tentative fix for issue #5: prevent Desktop from being blurred
 		flag = flag && (window.window_type!=Meta.WindowType.DESKTOP);
 		
